@@ -1,0 +1,41 @@
+THIS IS INSTALLATION OF PostgreSQL on KALI LINUX:
+
+1. Simply run: 
+      sudo apt install postgresql-12
+      
+2. To get installed also the Client programs add: 
+      sudo apt install postgresql-client-12
+      
+3. Again to Search for other gears: 
+      sudo apt search postgresql-12
+      
+4. Start service: 
+      sudo service postgresql start
+      
+--> Then try to connect PostgreSQL by command:
+      psql -U postgres -h localhost
+
+SOME CASES MAY WE WILL GET:
+
+1. Notification like that:
+"psql: could not connect to server: No such file or directory
+Is the server  running locally and accepting connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5432"?"
+
+--> REASON: Note how pg_hba.conf belongs to root, and users cannot even read it. This causes postgres to not be able to open this file and therefore not be able to start the server, throwing the error seen in the original question.
+
+A. RESOLVE Method 1: https://stackoverflow.com/questions/42653690/psql-could-not-connect-to-server-no-such-file-or-directory-5432-error
+By running:
+       sudo chmod +r pg_hba.conf
+
+I was able to make this file once again accessible to the postgres user and then after running
+       sudo service postgresql start
+Was able to get the server running again.
+
+B. RESOLVE Method 2: https://unix.stackexchange.com/questions/285080/psql-could-not-connect-to-server-no-such-file-or-directory
+On a debian system, postgresql files and directories should be owned by user postgres, in group postgres, with permissions of either 0700 (directories) or 0600 (files).
+
+If they're not that, you can repair perms & ownership with:
+        sudo chown -R postgres:postgres /var/lib/postgresql/12/
+        sudo chmod -R u=rwX,go= /var/lib/postgresql/12/
+Then reloading the service:
+        sudo service postgresql restart
