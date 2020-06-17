@@ -39,3 +39,7 @@ If they're not that, you can repair perms & ownership with:
         sudo chmod -R u=rwX,go= /var/lib/postgresql/12/
 Then reloading the service:
         sudo service postgresql restart
+
+OTHERS COMMAND:
+1. Change Postgres's User Password:
+        ALTER USER user_name WITH PASSWORD 'new_password';
