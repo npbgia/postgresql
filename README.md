@@ -14,3 +14,6 @@ SET PATH=%PATH%;"C:\Program Files\PostgreSQL\12\bin"
 ## Lỗi không dùng lệnh cmd psql "'more' is not recognized as an internal or external command, operable program or batch file." <br>
 --> Khắc phục: epxort path này trước khi dùng psql để đăng nhập PosgreSQL <br>
 PATH %PATH%;"C:\Windows\System32"
+
+# POSTGRESQL UBUNTU REMOTE:
+https://blog.logrocket.com/setting-up-a-remote-postgres-database-server-on-ubuntu-18-04/
